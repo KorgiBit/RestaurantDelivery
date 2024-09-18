@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Clients</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="center">All clients</h1>
+    <div class="form-container">
+        <table>
+            <thead>
+            <tr>
+                <th class="center">Client ID</th>
+                <th class="center">Client surname</th>
+                <th class="center">Orders</th> <!-- Новый столбец с заголовком "Orders" -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client : ${clients}">
+                <td class="center" th:text="${client.id}">Client ID</td>
+                <td th:text="${client.surname}">Client surname</td>
+                <td class="center">                <!-- Столбец с кнопкой -->
+                    <a th:href="@{/admin/clientorderhistory(clientSurname=${client.surname})}">
+                        <button class="action-button">&nbsp;>&nbsp;</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

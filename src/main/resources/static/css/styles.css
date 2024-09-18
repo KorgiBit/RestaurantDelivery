@@ -1,47 +1,267 @@
-/* Стилизация временная для таблиц */
-
+/* Стилизация основного контейнера для всего содержимого страницы */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;  /* шрифт, который будет использоваться для всего текста на странице */
+    background-color: #e0f7fa;          /* цвет фона для всего тела страницы */
+    padding: 20px;   /* внутренние отступы от краев элемента <body> до его содержимого. В данном случае, отступ
+                        составляет 20 пикселей со всех сторон. Это создаёт пространство между содержимым страницы
+                        и краем окна браузера, предотвращая слипание элементов с границей экрана. */
+    margin: 0;       /* внешние отступы вокруг элемента <body>. Установка значения 0 убирает любые стандартные
+                        отступы, которые браузер может добавлять по умолчанию. */
+    display: flex;   /* модель отображения элемента. Значение flex превращает элемент <body> в гибкий контейнер
+                        (flexbox), который используется для выравнивания и распределения дочерних элементов. */
+    flex-direction: column;  /* направление, в котором располагаются дочерние элементы flex-контейнера.
+                                В данном случае, значение column означает, что элементы будут располагаться
+                                в столбик сверху вниз. */
+    align-items: center; /* Центрируем содержимое. Значение center выравнивает все дочерние элементы по центру
+                            горизонтальной оси контейнера <body>. Это означает, что всё содержимое страницы
+                            будет выровнено по центру, независимо от его ширины.*/
+    /* justify-content: center; центрирование содержимого страницы по высоте не нужно */
+    min-height: 100vh;  /* Минимальная высота элемента
 }
-.container {
+/* Стилизация заголовков первого (<h1>) и второго (<h2>) уровней */
+h1, h2 {
+    color: #ff6f61;       /* цвет текста элемента */
+    margin-top: 0px;
+    margin-bottom: 10px;  /* внешний отступ снизу элемента, пространство между нижним краем заголовка и
+                            следующим элементом на странице (например, текстом, изображением или другим заголовком) */
+    text-align: center;   /* Центрируем заголовок по ширине страницы */
+}
+h3 {
+    color: #ff6f61;       /* цвет текста элемента */
+}
+/* Обертка для формы */
+.form-container {
+    width: auto; /* Автоматическая ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера на странице */
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    /* align-items: center; делает ширину таблиц разной - это портит картинку */
 }
+
+/* Таблицы */
 table {
     border-collapse: collapse;
-    width: 100%;
-    margin: 20px 0;
+
 }
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-th {
-    background-color: #f2f2f2;
-}
+/* Центрирование текста в таблицах */
 .center {
     text-align: center;
 }
-.form-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+
+table form {
+              display: flex; /* Используем Flexbox для размещения элементов в одну линию */
+              align-items: center; /* Выравниваем элементы по центру по вертикали */
 }
-.form-container input[type="text"], .form-container input[type="number"] {
-    margin: 5px;
+
+form table {
+    border-collapse: collapse;
+    width: 120%;
+    margin: 0 auto 5px; /* Центрируем таблицу и добавляем отступ снизу */
+    table-layout: auto; /* Это значение по умолчанию, но можно его явно указать */
 }
-.form-container button {
-    margin: 5px;
+th, td {               /* содержимое ячейки по горизонтали центрируем в html */
+        border: 1px solid #ff6f61;
+        padding: 4px 8px; /* Уменьшает внутренние отступы в ячейках, что уменьшает высоту строк */
 }
+table td, table th {  /* Ячейки таблицы Admin Dishes */
+    line-height: 1.9; /* Устанавливает высоту строки, чтобы уменьшить вертикальные интервалы */
+}
+
+table .inner-table {
+    /* Ваши стили для встроенной таблицы */
+    border: none; /* Убираем границы таблицы */
+}
+table .inner-table td,
+table .inner-table th {
+    border: none; /* Убираем границы ячеек и заголовков */
+}
+
+th {
+    background-color: #ff6f61;
+}
+
+/* Общие стили для всех кнопок */
+button {
+    padding: 6px 12px; /* Оставляем текущие отступы для кнопки */
+    font-size: 1.2em; /* Размер шрифта кнопки */
+    height: 34px; /* Задаем фиксированную высоту для кнопки, чтобы она совпадала с input */
+    background-color: #ff6f61; /* Общий цвет фона для кнопок */
+    color: #ffffff; /* Цвет текста */
+    border: none; /* Убираем границу для кнопки */
+    cursor: pointer; /* Курсор-указатель при наведении на кнопки */
+    display: block;
+    margin: 6px auto; /* Центрирование кнопки, отступы вокруг кнопки */
+    box-sizing: border-box; /* Учитываем padding и border в общей высоте */
+}
+button a, a {
+    text-decoration: none; /* Убираем подчёркивание текста для ссылок */
+    color: inherit; /* Оставляем цвет текста таким же, как у родительского элемента (например, кнопки) */
+}
+button a:hover, a:hover {
+    text-decoration: none; /* Убираем подчёркивание при наведении */
+}
+button:hover {
+    background-color: #ff3d3d;
+}
+/* Объединенные стили для кнопок с классами .update и .action-button */
+table button.update,
+table button.action-button {
+    background-color: #0075ff; /* Цвет фона кнопки */
+    padding: 2px 10px; /* Внутренние отступы */
+    margin-left: 4px; /* Небольшой отступ слева от кнопки, чтобы она не прилипала к чекбоксу */
+    font-size: 0.9em; /* Уменьшаем размер шрифта */
+}
+
+table button.action-button {
+    margin-left: 8px; /* смещаем в центр */
+    height: 30px;
+
+}
+/* Объединенные стили при наведении для кнопок с классами .update и .action-button */
+table button.update:hover,
+table button.action-button:hover {
+    background-color: #0049a4; /* Цвет фона при наведении */
+}
+
+/* Устанавливаем ширину контейнера такой же, как у таблицы */
+.button-container {
+    width: 120%; /* Используем ту же ширину, что и у таблицы */
+    text-align: right; /* Выравниваем кнопку по правой стороне контейнера */
+    /* margin-top: 10px; /* Отступ сверху не нужен */
+}
+
+/* Стиль для кнопки deleteButton */
 #deleteButton {
-    margin-top: 10px;
+    margin-top: 1px; /* Отступ от низа второй таблицы с блюдами*/
+    float: right; /* Кнопка будет выровнена по правой стороне контейнера */
 }
+input[type="number"] {
+    padding: 0; /* Минимизируем padding, чтобы не увеличивать высоту и ширину */
+    font-family: 'Roboto', sans-serif;  /* шрифт, который будет использоваться для всего текста на странице */
+    font-size: 1em; /* Размер текста такой же, как у input text */
+    height: 34px; /* Подгоняем высоту под высоту кнопки */
+    width: fit-content; /* Ширина будет соответствовать содержимому */
+    max-width: 84px; /* Ограничиваем максимальную ширину */
+    box-sizing: border-box; /* Учитываем все padding и border в общей ширине и высоте элемента */
+    vertical-align: middle; /* Центрируем элемент по вертикали в ячейке */
+    border: 1px solid #ccc; /* Добавляем границу для консистентного вида */
+    border-radius: 4px; /* Округляем углы для гармоничного внешнего вида */
+    display: inline-block; /* Inline-блок, чтобы избежать расширения на всю ширину */
+    margin: 0 auto; /* Центрирование самого input внутри ячейки */
+    text-align: center; /* Центрируем текст внутри input */
+}
+input[type="text"], input[type="password"]{
+    padding: 0px 10px; /* Увеличиваем внутренний отступ: 0px сверху и снизу, 10px слева и справа */
+    font-family: 'Roboto', sans-serif;  /* шрифт, который будет использоваться для всего текста на странице */
+    font-size: 1em; /* Размер текста такой же, как у input number */
+    height: 34px; /* Подгоняем высоту под высоту кнопки */
+    width: 60%;
+    box-sizing: border-box; /* Учитываем все padding и border в общей ширине и высоте элемента */
+    vertical-align: middle; /* Центрируем элемент по вертикали в ячейке */
+    border: 1px solid #ccc; /* Добавляем границу для консистентного вида */
+    border-radius: 4px; /* Округляем углы для гармоничного внешнего вида */
+    margin: 0 auto; /* Центрирование самого input внутри ячейки */
+    margin-bottom: 4px; /* Устанавливаем отступ в 4 пикселя только снизу */
+}
+input[type="password"] {
+    margin-left: 2px; /* Сдвигаем нижний input на 2 пикселя вправо */
+}
+/* Применяем padding только к ячейкам верхней таблицы */
+form:first-of-type td {
+    padding: 2px; /* Устанавливаем минимальный padding для ячеек верхней таблицы */
+}
+
+/* Применяем правило только к input внутри таблиц (на страницу логгирования не влияет)*/
+form table input[type="text"],
+form table input[type="number"] {
+    width: calc(100% - 16px); /* Подгоняем ширину, учитывая padding, уменьшаем отступы инпутов от границ ячеек */
+    margin-bottom: 1px; /* Устанавливаем отступ в 1 пиксель только снизу */
+}
+
+/* Задаем общий шрифт для всех ячеек обеих таблиц */
+form table td, form table th {
+    font-family: 'Roboto', sans-serif; /* Устанавливаем шрифт для всех ячеек */
+    font-size: 1em; /* Устанавливаем одинаковый размер шрифта */
+    font-weight: normal; /* Обычный вес шрифта */
+    color: #000; /* Цвет текста */
+}
+/* Делаем текст заголовков таблиц жирным */
+form table th {
+    font-weight: bold; /* Задаем жирный шрифт для заголовков */
+    font-size: 1em; /* Можно также задать размер шрифта, если нужно */
+    color: #000; /* Цвет текста, если необходимо */
+}
+/* Стили для формы регистрации */
+.register-form input[type="password"] {
+    margin-left: -4px; /* Сдвигаем нижний input на 4 пикселей влево */
+}
+.register-form label[for="password"] {
+    margin-left: -2px; /* Сдвигаем label на 2 пикселя влево */
+}
+
+/* =============================================================================================== */
+/* Стили для таблицы клиентского заказа */
+#clientorder-table input[type="number"] {
+    width: 50px; /* Устанавливаем ширину инпута */
+}
+#clientorder-table button {
+    border-radius: 4px; /* Скругляем углы кнопки на 4 пикселей */
+}
+#clientorder-table td form {
+    display: flex; /* Используем Flexbox для размещения элементов в одну линию */
+    gap: 4px; /* Устанавливаем промежуток в 4 пикселя между инпутом и кнопкой */
+}
+
+
+.order-container {
+    display: flex; /* Используем Flexbox для контейнера */
+    justify-content: space-between; /* Размещаем элементы по бокам контейнера */
+    align-items: flex-start; /* Выравниваем элементы по верхней части контейнера */
+    gap: 20px; /* Добавляем промежуток между таблицей и секцией заказа */
+    margin-top: 0px; /* Добавляем отступ сверху, если нужно */
+}
+
+.order-section {
+    width: 300px; /* Фиксированная ширина секции заказа */
+}
+
+
+.order-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем содержимое по горизонтали */
+    margin-top: 10px; /* Добавляем небольшой отступ сверху, если нужно */
+}
+
+.order-section input[type="text"] {
+    width: 100%; /* Задаем ширину input равной ширине родительского контейнера */
+    text-align: center; /* Центрируем текст внутри input */
+    margin-bottom: 10px; /* Отступ снизу, чтобы разделить input и кнопки */
+    box-sizing: border-box; /* Учитываем padding и border в общей ширине */
+}
+/* ================================================================================================================== */
+/* список заказываемых клиентом блюд */
+.order-item {
+    display: flex;
+    justify-content: flex-start;
+    white-space: nowrap; /* Предотвращает перенос строк */
+}
+
+.dish-name {
+    display: inline-block;
+    width: 210px; /* Увеличьте ширину, если необходимо */
+    white-space: nowrap; /* Запрещает перенос текста */
+    overflow: hidden; /* Прячет текст, который не помещается */
+    text-overflow: ellipsis; /* Добавляет троеточие, если текст не помещается */
+}
+
+.dish-price {
+    margin-right: 15px; /* Отступ между ценой и количеством */
+    flex-shrink: 0; /* Предотвращает сжатие цены */
+}
+
+.dish-quantity {
+    flex-shrink: 0; /* Предотвращает сжатие количества */
+}
+/* ================================================================================================================== */

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Order History</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+
+<h1 style="text-align: center;">Order History for <span th:text="${clientSurname}">Client Surname</span></h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Order Date</th>
+        <th>Delivery Address</th>
+        <th>Client Surname</th>
+        <th>Order Content</th>
+        <th>Total Amount</th>
+        <th>Delivery</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orderHistoryList}">
+        <td class="center" th:text="${order.id}">Order ID</td>
+        <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm:ss')}">Order Date</td>
+        <td th:text="${order.deliveryAddress}">Delivery Address</td>
+        <td th:text="${order.user.surname}">Client Surname</td>
+        <td>
+            <table class="inner-table">
+                <tbody>
+                <tr th:each="item : ${order.orderItems}">
+                    <td th:text="${item.dish.name}">Блюдо</td>
+                    <td th:text="${item.quantity}">Количество</td>
+                    <td th:text="${item.dish.price}">Цена</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="center" th:text="${order.totalAmount}">Total Amount</td>
+        <td class="center" th:text="${order.isDelivered ? 'доставлен' : 'в пути'}">Delivery</td> <!-- Условное отображение статуса доставки -->
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+
