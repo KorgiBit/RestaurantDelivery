@@ -1,0 +1,19 @@
+<!--Домашняя страница для клиента-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Client Home</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <h1>Welcome, <span th:text="${surname}">Client</span>!</h1>
+    <!-- Кнопка для перехода на страницу текущего заказа -->
+    <a th:href="@{/client/makeorder}">
+        <button>Make order</button>
+    </a>
+    <!-- Кнопка для перехода на страницу истории заказов клиента -->
+    <a th:href="@{/client/orderhistory}">
+        <button>My orders history</button>
+    </a>
+</body>
+</html>

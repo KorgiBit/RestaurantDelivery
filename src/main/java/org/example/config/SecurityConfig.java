@@ -15,6 +15,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -37,15 +43,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/client/**").hasRole("CLIENT")
+                .antMatchers("/dishes").hasRole("ADMIN") // Добавлено ограничение доступа к /dishes
+                .antMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                .antMatchers("/", "/login", "/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+
+                .defaultSuccessUrl("/admin/home", true)
+                .failureHandler(customAuthenticationFailureHandler())
+                .successHandler((request, response, authentication) -> {
+                    if (authentication.getAuthorities().stream()
+                            .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+                        response.sendRedirect("/admin/home");
+                    } else {
+                        response.sendRedirect("/client/home");
+                    }
+                })
+
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login")
                 .and()
                 .csrf().disable();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+
+    public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
+        @Override
+        public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                            org.springframework.security.core.AuthenticationException exception)
+                                            throws IOException, ServletException {
+            response.sendRedirect("/login?error");
+        }
     }
 }

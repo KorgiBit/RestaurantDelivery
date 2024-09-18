@@ -1,0 +1,28 @@
+<!--Эта страница служит удобным интерфейсом для администратора, -->
+<!--предоставляя ему быстрый доступ к основным функциям управления через кнопки.-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Home</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Welcome, <span th:text="${surname}" >Admin</span> (administrator)!</h1>
+
+    <!-- Кнопка для перехода на страницу Dishes -->
+    <a th:href="@{/admin/dishes}">
+        <button>Dishes</button>
+    </a>
+
+    <!-- Кнопка для перехода на страницу Order History -->
+    <a th:href="@{/admin/orderhistory}">
+        <button>Order History</button>
+    </a>
+
+    <!-- Кнопка для перехода на страницу Order Clients -->
+    <a th:href="@{/admin/clients}">
+        <button>Clients</button>
+    </a>
+
+</body>
+</html>
