@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Current Order</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<!--    Этот блок выводит основные детали заказа, такие как номер заказа, дата заказа и фамилия клиента-->
+<div class="order-details">
+<!--    th:text="${orderHistory.getId()}" — это выражение Thymeleaf, -->
+<!--    которое динамически подставляет значение id из текущей модели OrderHistory-->
+    <p>Заказ номер: <span th:text="${orderHistory.getId()}"></span></p>
+<!--    форматируем дату orderDate из текущей модели OrderHistory в формате "дд.ММ.гггг ЧЧ:мм".-->
+    <p><span th:text="${#dates.format(orderHistory.getOrderDate(), 'dd.MM.yyyy HH:mm')}"></span></p>
+<!--    Здесь отображается фамилия клиента-заказчика из текущей модели OrderHistory -->
+    <p>Клиент: <span th:text="${orderHistory.getUser().getSurname()}"></span></p>
+</div>
+<div class="order-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Блюдо</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--    currOrderItemsList - список позиций текущего заказа-->
+        <tr th:each="order : ${currOrderItemsList}">
+            <td th:text="${order.dish.name}"></td>
+            <td class="center" th:text="${order.quantity}"></td>
+            <td class="center" th:text="${order.dish.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="order-summary">
+<!--    Сумма заказа (подсчитанная в ClientMakeOrderController) из текущей модели OrderHistory-->
+    <p>Сумма заказа: <span th:text="${orderHistory.getTotalAmount}"></span></p>
+<!--   Адрес доставки заказа из текущей модели OrderHistory-->
+    <p>Адрес доставки: <span th:text="${orderHistory.getDeliveryAddress()}"></span></p>
+</div>
+
+<!-- Кнопка для перехода на страницу заказов клиента -->
+<a th:href="@{/client/orderhistory}">
+    <button>All orders</button>
+</a>
+
+</body>
+</html>
+

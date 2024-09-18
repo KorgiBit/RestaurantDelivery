@@ -12,3 +12,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findBySurname(String surname);  // Поиск пользователя по фамилии
     boolean existsBySurname(String surname); // Метод для проверки уникальности фамилии
 }
+

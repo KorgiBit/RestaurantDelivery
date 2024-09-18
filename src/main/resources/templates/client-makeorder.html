@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Client Make Order</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1 style="text-align: center;">Client Make Order</h1>
+<h2 style="text-align: center;">Welcome, <span th:text="${#authentication.name}">Client</span>!</h2>
+
+<div class="order-container">
+    <table id="clientorder-table">
+        <thead>
+        <tr>
+            <th>Dish Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dish : ${dishes}">
+            <td th:text="${dish.name}">Dish Name</td>
+            <td th:text="${dish.price}">Price</td>
+            <td>
+                <form th:action="@{/client/makeorder/add}" method="post">
+                    <input type="hidden" th:name="dishId" th:value="${dish.id}">
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button type="submit">Add to order</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="order-section">
+        <h3 class="center">Your Order</h3>
+        <ul>
+            <li th:each="item : ${orderItems}" class="order-item">
+                <span class="dish-name" th:text="${item.dish.name}">Dish Name</span>
+                <span class="dish-price" th:text="${item.dish.price}">Price</span>
+                <span class="dish-quantity" th:text="${item.quantity}">Quantity</span>
+            </li>
+        </ul>
+        <p>Текущая сумма заказа: <span th:text="${currentOrderAmount}"></span></p>
+
+        <form th:action="@{/client/makeorder/submit}" method="post" style="display: inline;">
+            <input type="text" name="deliveryAddress" placeholder="Enter Delivery Address" required>
+            <button type="submit" id="placeOrderButton">Place Order</button>
+        </form>
+        <form th:action="@{/client/makeorder/clear}" method="post" style="display: inline;">
+            <button type="submit" id="clearOrderButton">Clear Order</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
