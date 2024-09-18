@@ -1,0 +1,81 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>RestaurantDelivery</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>RestaurantDelivery Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+<!--  Добавлено к существующему коду-->
+
+<!-- Родительский проект для текущего проекта. предоставляет основные настройки, зависимости, плагины и конфигурации, -->
+<!-- которые ваш проект будет наследовать. Пустое значение relativePath указывает Maven на то, чтобы искать родительский -->
+<!-- POM в репозитории (обычно Maven Central), а не на локальной файловой системе.-->
+<!-- Без указания родителя Maven не знает, какие версии зависимостей и плагинов использовать, и вам придётся вручную -->
+<!-- задавать все настройки и версии. Это может привести к несовместимости версий и сложностям при сборке проекта, -->
+<!-- поскольку Spring Boot Starter Parent уже включает множество настроек, которые обеспечивают правильную работу вашего -->
+<!-- приложения. Таким образом, ссылка на родителя делает ваш проект проще в настройке и управлении, обеспечивая стабильную -->
+<!-- и предсказуемую работу всех зависимостей и плагинов.    -->
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.5.4</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
+  <dependencies>
+
+<!--Стартер для веб-приложений. Включает необходимые библиотеки для создания веб-приложений, -->
+<!--такие как Spring MVC, Tomcat (встроенный сервер)      -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+<!--Стартер для работы с JPA. Включает библиотеки для работы с базами данных с использованием JPA и Hibernate. -->
+<!--Обеспечивает удобную работу с объектно-реляционным отображением (ORM), позволяет легко взаимодействовать -->
+<!--с базами данных с помощью репозиториев (Repository) и стандартных SQL-запросов.-->
+<!--Автоматически конфигурирует подключение к базе данных и управление транзакциями.-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+<!--Стартер для обеспечения безопасности приложения. Включает Spring Security, который предоставляет встроенные -->
+<!--функции безопасности для аутентификации и авторизации пользователей.-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+<!--  Соединение с базой данных MySQL    -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+<!--Оформление HTML-шаблонов       -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+    </dependency>
+
+<!-- Apache Velocity — это шаблонизатор, который позволяет генерировать текст (например, HTML, XML или другой -->
+<!-- текст) с использованием шаблонов и данных.-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.velocity</groupId>-->
+<!--      <artifactId>velocity</artifactId>-->
+<!--      <version>1.7</version>-->
+<!--    </dependency>-->
+  </dependencies>
+
+</project>
+

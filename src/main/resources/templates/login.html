@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Please login</h1>
+<form method="post" action="/login">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"/>
+    <br/>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"/>
+    <br/>
+    <button type="submit">Login</button>
+</form>
+
+<!-- Добавляем блок для отображения ошибки -->
+<div id="error-message" style="color:red;"></div>
+
+<script>
+    // Перенаправляем пользователя обратно на страницу логина без параметра
+    if (window.location.search.includes("error")) {   // Проверка на наличие ошибки в URL (неправильный ввод)
+        // Отображение сообщения об ошибке
+        document.getElementById("error-message").innerText = "Пожалуйста, повторите ввод.";
+        // Заменяем текущий URL в истории браузера на /login, удаляя параметр error из строки запроса. Это делается,
+        // чтобы пользователь не увидел параметр error в URL после отображения сообщения об ошибке. Таким образом,
+        // если он обновит страницу, сообщение об ошибке не появится снова.
+        window.history.replaceState({}, document.title, "/login");
+    }
+</script>
+</body>
+</html>
