@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dishes</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="center">Admin Dishes</h1>
+
+    <div class="form-container">
+        <form th:action="@{/admin/dishes}" method="post">
+            <table>
+                <thead>
+                <tr>
+                    <th class="center">Dish Name</th>
+                    <th class="center">Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="center"><input type="text" name="name" required></td>
+                    <td class="center"><input type="number" name="price" step="10" min="0" required></td>
+                    <td class="center"><button type="submit">Add Dish</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <!--HTML-форма, которая используется для "удаления" выбранных элементов (блюд) в веб-приложении
+        и для рендеринга динамического контента на сервере-->
+        <form th:action="@{/admin/dishes/delete}" method="post">
+            <!--/admin/dishes/delete - URL, который будет использоваться для отправки формы-->
+            <!-- форма будет отправлена методом POST, что обычно используется для изменения данных на сервере-->
+            <table>
+                <thead> <!-- заголовки (<thead>), которые описывают столбцы таблицы-->
+                <tr>
+                    <th class="center">Dish ID</th>
+                    <th class="center">Dish Name</th>
+                    <th class="center">Price</th>
+                    <th class="center">Select</th>
+                </tr>
+                </thead>
+                <tbody> <!--часть таблицы, которая заполняется данными с использованием цикла th:each="dish : ${dishes}".
+                        Этот цикл проходит по коллекции dishes и для каждого элемента (блюда) создаёт строку таблицы.-->
+                <tr th:each="dish : ${dishes}">
+                    <td class="center" th:text="${dish.id}">Dish ID</td>
+                    <td th:text="${dish.name}">Dish Name</td>
+                    <td th:text="${dish.price}">Price</td>
+                    <!--для каждого блюда создаётся чекбокс, позволяющий пользователю выбрать блюда для "удаления".
+                    Значение чекбокса (th:value) соответствует ID блюда.-->
+                    <td class="center"><input type="checkbox" name="ids" th:value="${dish.id}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Контейнер для кнопки под таблицей -->
+            <div class="button-container">
+                <!--кнопка для "удаления" выбранных блюд-->
+                <button type="submit" id="deleteButton">Delete Selected</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
